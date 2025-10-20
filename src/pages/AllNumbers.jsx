@@ -32,6 +32,7 @@ export default function AllNumbers() {
         <table border="1" cellPadding="6" style={{ borderCollapse: 'collapse', width: '100%' }}>
           <thead>
             <tr>
+              <th>Serial No.</th>
               <th>_id</th>
               <th>Value</th>
               <th>Saved At</th>
@@ -40,6 +41,7 @@ export default function AllNumbers() {
           <tbody>
             {rows.map((r) => (
               <tr key={r._id}>
+                <td>{r.serial ?? '—'}</td>
                 <td>{r._id}</td>
                 <td>{r.value}</td>
                 <td>{new Date(r.savedAt).toLocaleString()}</td>

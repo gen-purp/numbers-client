@@ -17,3 +17,15 @@ const res = await fetch(`${API_URL}/api/numbers/last/datetime`);
 if (!res.ok) throw new Error('Failed to fetch last datetime');
 return res.json();
 }
+
+export async function getSecondNumber() {
+  const res = await fetch(`${API_URL}/api/numbers/second`);
+  if (!res.ok) throw new Error('Failed to fetch second-most-recent number');
+  return res.json();
+}
+
+export async function getSecondDatetime() {
+  const res = await fetch(`${API_URL}/api/numbers/second/datetime`);
+  if (!res.ok) throw new Error('Failed to fetch second-most-recent datetime');
+  return res.json();
+}

@@ -1,31 +1,27 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API = import.meta.env.VITE_API_URL; // e.g. https://api.testcity.xyz
 
-export async function saveNumber() {
-const res = await fetch(`${API_URL}/api/numbers`, { method: 'POST' });
-if (!res.ok) throw new Error('Failed to save number');
-return res.json();
-}
-
-export async function getLastNumber() {
-const res = await fetch(`${API_URL}/api/numbers/last`);
-if (!res.ok) throw new Error('Failed to fetch last number');
-return res.json();
-}
-
-export async function getLastDatetime() {
-const res = await fetch(`${API_URL}/api/numbers/last/datetime`);
-if (!res.ok) throw new Error('Failed to fetch last datetime');
-return res.json();
-}
-
-export async function getSecondNumber() {
-  const res = await fetch(`${API_URL}/api/numbers/second`);
-  if (!res.ok) throw new Error('Failed to fetch second-most-recent number');
+export async function register({ email, fullName, password }) {
+  const res = await fetch(`${API}/api/auth/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, fullName, password })
+  });
   return res.json();
 }
 
-export async function getSecondDatetime() {
-  const res = await fetch(`${API_URL}/api/numbers/second/datetime`);
-  if (!res.ok) throw new Error('Failed to fetch second-most-recent datetime');
+export async function login({ email, password }) {
+  const res = await fetch(`${API}/api/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  });
+  return res.json();
+}
+
+export async function me() {
+  const token = localStorage.getItem('token');
+  const res = await fetch(`${API}/api/me`, {
+    headers: { 'Authorization': token ? `Bearer ${token}` : '' }
+  });
   return res.json();
 }
